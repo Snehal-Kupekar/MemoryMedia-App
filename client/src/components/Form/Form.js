@@ -44,7 +44,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(createPost(postData));
       console.log("inside createpost");
       clear();
-      
+
     } else {
       dispatch(updatePost(currentId, postData));
       clear();
