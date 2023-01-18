@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardActions,
@@ -7,6 +7,7 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
 import ThumbsUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -14,55 +15,91 @@ import moment from "moment";
 
 import useStyle from "./styles";
 import { useDispatch } from "react-redux";
+import { deletePost } from '../../../actions/posts';
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
+  const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [deleteDialog, setDeleteDialog] = useState(false);
   const classes = useStyle();
+
+  const handleDeletePost = () => {
+    setDeleteDialog(true);
+    dispatch(deletePost(post._id, post));
+    handleCloseDialog();
+  }
+  const handlePostLikeCount = async () => {
+    if (likeCount === 0) {
+      setLikeCount(1);
+    }
+    else {
+      setLikeCount(0);
+    }
+  }
+  const handleCloseDialog = () => {
+    setDeleteDialog(false);
+  }
   return (
-    <Card className={classes.card}>
-      <CardMedia
-        className={classes.media}
-        image={post.selectedFile}
-        title={post.title}
-      />
-      <div className={classes.overlay}>
-        <Typography variant="h6">{post.creator}</Typography>
-        <Typography variant="body2">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
-      <div className={classes.overlay2}>
-        {/* 3dot button  - for updateing post we have to pass current user id to form by passing it to onClick function , it can done*/}
-        <Button
-          style={{ color: "white" }}
-          size="small"
-          onClick={() => setCurrentId(post._id)}
-        >
-          <MoreHorizIcon fontSize="default" />
-        </Button>
-      </div>
-      <div className={classes.details}>
-        <Typography variant="body2" color="textSecondary">
-          {post.tag}
-        </Typography>
-      </div>
-      <CardContent>
-        <Typography className={classes.title} variant="h5" gutterBottom>
-          {post.message}
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
-          <ThumbsUpAltIcon fontSize="small" />
-          Like
-          {post.likeCount}
-        </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
-          <DeleteIcon fontSize="small" />
-          Delete
-        </Button>
-      </CardActions>
-    </Card>
+    <>
+      <Dialog onClose={handleCloseDialog} open={deleteDialog}>
+        <DialogTitle>Delete Post</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this post?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeletePost}>Yes</Button>
+          <Button onClick={handleCloseDialog} autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image={post.selectedFile}
+          title={post.title}
+        />
+        <div className={classes.overlay}>
+          <Typography variant="h6">{post.creator}</Typography>
+          <Typography variant="body2">
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+        </div>
+        <div className={classes.overlay2}>
+          {/* 3dot button  - for updateing post we have to pass current user id to form by passing it to onClick function , it can done*/}
+          <Button
+            style={{ color: "white" }}
+            size="small"
+            onClick={() => setCurrentId(post._id)}
+          >
+            <MoreHorizIcon fontSize="default" />
+          </Button>
+        </div>
+        <div className={classes.details}>
+          <Typography variant="body2" color="textSecondary">
+            {post.tag}
+          </Typography>
+        </div>
+        <CardContent>
+          <Typography className={classes.title} variant="h5" gutterBottom>
+            {post.message}
+          </Typography>
+        </CardContent>
+        <CardActions className={classes.cardActions}>
+          <Button size="small" color="primary" onClick={handlePostLikeCount}>
+            <ThumbsUpAltIcon fontSize="small" />
+            Like
+            {likeCount}
+          </Button>
+          <Button size="small" color="primary" onClick={()=>setDeleteDialog(true)}>
+            <DeleteIcon fontSize="small" />
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
+    </>
   );
 };
 
