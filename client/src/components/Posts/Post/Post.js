@@ -30,7 +30,7 @@ const Post = ({ post, setCurrentId }) => {
     handleCloseDialog();
     setIsDelete(true);
   }
-  const handlePostLikeCount = async () => {
+  const handlePostLikeCount = () => {
     likeCount === 0 ? setLikeCount(1) : setLikeCount(0);
   }
   const handleCloseDialog = () => {
