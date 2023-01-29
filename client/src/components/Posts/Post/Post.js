@@ -15,12 +15,12 @@ import moment from "moment";
 
 import useStyle from "./styles";
 import { useDispatch } from "react-redux";
-import { deletePost } from '../../../actions/posts';
+import { deletePost, updatePost } from '../../../actions/posts';
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const [isDelete, setIsDelete] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [likeClicked, setLikeClicked] = useState(true);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const classes = useStyle();
 
@@ -30,12 +30,22 @@ const Post = ({ post, setCurrentId }) => {
     handleCloseDialog();
     setIsDelete(true);
   }
+  
   const handlePostLikeCount = () => {
-    likeCount === 0 ? setLikeCount(1) : setLikeCount(0);
+    setLikeClicked(!likeClicked);
+    let likeCount = likeClicked === true ? post.likeCount + 1 : post.likeCount - 1;
+    dispatch(updatePost(post._id, { 'likeCount': likeCount }))
   }
+  
   const handleCloseDialog = () => {
     setDeleteDialog(false);
   }
+  
+  const handlePostResetCount = () => {
+    
+    dispatch(updatePost(post._id, { 'likeCount': 0 }));
+  }
+
   return (
     <>
       <Dialog onClose={handleCloseDialog} open={deleteDialog}>
@@ -89,7 +99,11 @@ const Post = ({ post, setCurrentId }) => {
             <Button size="small" color="primary" onClick={handlePostLikeCount}>
               <ThumbsUpAltIcon fontSize="small" />
               Like
-              {likeCount}
+              {post.likeCount}
+            </Button>
+            <Button size="small" color="primary" onClick={handlePostResetCount}>
+              <ThumbsUpAltIcon fontSize="small" />
+              reset
             </Button>
             <Button size="small" color="primary" onClick={() => setDeleteDialog(true)}>
               <DeleteIcon fontSize="small" />
