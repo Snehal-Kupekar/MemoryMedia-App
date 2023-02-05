@@ -7,7 +7,13 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText } from "@material-ui/core";
+import {
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@material-ui/core";
 import ThumbsUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -15,7 +21,7 @@ import moment from "moment";
 
 import useStyle from "./styles";
 import { useDispatch } from "react-redux";
-import { deletePost } from '../../../actions/posts';
+import { deletePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
@@ -27,18 +33,17 @@ const Post = ({ post, setCurrentId }) => {
     setDeleteDialog(true);
     dispatch(deletePost(post._id, post));
     handleCloseDialog();
-  }
+  };
   const handlePostLikeCount = async () => {
     if (likeCount === 0) {
       setLikeCount(1);
-    }
-    else {
+    } else {
       setLikeCount(0);
     }
-  }
+  };
   const handleCloseDialog = () => {
     setDeleteDialog(false);
-  }
+  };
   return (
     <>
       <Dialog onClose={handleCloseDialog} open={deleteDialog}>
@@ -93,7 +98,11 @@ const Post = ({ post, setCurrentId }) => {
             Like
             {likeCount}
           </Button>
-          <Button size="small" color="primary" onClick={()=>setDeleteDialog(true)}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => setDeleteDialog(true)}
+          >
             <DeleteIcon fontSize="small" />
             Delete
           </Button>
