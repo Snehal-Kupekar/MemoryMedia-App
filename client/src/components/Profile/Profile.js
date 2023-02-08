@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import useStyle from "../Form/styles";
+
 // import Home from "../Home";
 
 const Profile = () => {
+
+  const [userData , setUserData] = useState({
+    name : "",
+    password : "",
+    passwordConf : "",
+  });
+
+
   const classes = useStyle();
 
   const navigate = useNavigate();
@@ -12,7 +21,15 @@ const Profile = () => {
   const profilePage = () =>{
     navigate("/home");
   }
- 
+  
+  const handleSubmit = async(e) =>{
+    e.preventDefault() ;
+
+    
+  }
+    
+  
+
   return (
     <Grid
       container
