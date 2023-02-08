@@ -25,6 +25,7 @@ import { deletePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
+  const [isDelete, setIsDelete] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const classes = useStyle();
@@ -33,13 +34,10 @@ const Post = ({ post, setCurrentId }) => {
     setDeleteDialog(true);
     dispatch(deletePost(post._id, post));
     handleCloseDialog();
+    setIsDelete(true);
   };
-  const handlePostLikeCount = async () => {
-    if (likeCount === 0) {
-      setLikeCount(1);
-    } else {
-      setLikeCount(0);
-    }
+  const handlePostLikeCount = () => {
+    likeCount === 0 ? setLikeCount(1) : setLikeCount(0);
   };
   const handleCloseDialog = () => {
     setDeleteDialog(false);
@@ -60,54 +58,56 @@ const Post = ({ post, setCurrentId }) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image={post.selectedFile}
-          title={post.title}
-        />
-        <div className={classes.overlay}>
-          <Typography variant="h6">{post.creator}</Typography>
-          <Typography variant="body2">
-            {moment(post.createdAt).fromNow()}
-          </Typography>
-        </div>
-        <div className={classes.overlay2}>
-          {/* 3dot button  - for updateing post we have to pass current user id to form by passing it to onClick function , it can done*/}
-          <Button
-            style={{ color: "white" }}
-            size="small"
-            onClick={() => setCurrentId(post._id)}
-          >
-            <MoreHorizIcon fontSize="default" />
-          </Button>
-        </div>
-        <div className={classes.details}>
-          <Typography variant="body2" color="textSecondary">
-            {post.tag}
-          </Typography>
-        </div>
-        <CardContent>
-          <Typography className={classes.title} variant="h5" gutterBottom>
-            {post.message}
-          </Typography>
-        </CardContent>
-        <CardActions className={classes.cardActions}>
-          <Button size="small" color="primary" onClick={handlePostLikeCount}>
-            <ThumbsUpAltIcon fontSize="small" />
-            Like
-            {likeCount}
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => setDeleteDialog(true)}
-          >
-            <DeleteIcon fontSize="small" />
-            Delete
-          </Button>
-        </CardActions>
-      </Card>
+      {!isDelete && (
+        <Card className={classes.card}>
+          <CardMedia
+            className={classes.media}
+            image={post.selectedFile}
+            title={post.title}
+          />
+          <div className={classes.overlay}>
+            <Typography variant="h6">{post.creator}</Typography>
+            <Typography variant="body2">
+              {moment(post.createdAt).fromNow()}
+            </Typography>
+          </div>
+          <div className={classes.overlay2}>
+            {/* 3dot button  - for updateing post we have to pass current user id to form by passing it to onClick function , it can done*/}
+            <Button
+              style={{ color: "white" }}
+              size="small"
+              onClick={() => setCurrentId(post._id)}
+            >
+              <MoreHorizIcon fontSize="default" />
+            </Button>
+          </div>
+          <div className={classes.details}>
+            <Typography variant="body2" color="textSecondary">
+              {post.tag}
+            </Typography>
+          </div>
+          <CardContent>
+            <Typography className={classes.title} variant="h5" gutterBottom>
+              {post.message}
+            </Typography>
+          </CardContent>
+          <CardActions className={classes.cardActions}>
+            <Button size="small" color="primary" onClick={handlePostLikeCount}>
+              <ThumbsUpAltIcon fontSize="small" />
+              Like
+              {likeCount}
+            </Button>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => setDeleteDialog(true)}
+            >
+              <DeleteIcon fontSize="small" />
+              Delete
+            </Button>
+          </CardActions>
+        </Card>
+      )}
     </>
   );
 };
