@@ -11,10 +11,10 @@ export const getUser = () => async (dispatch) =>{
     }
 }
 
-export const createUser = (users) => async (dispatch) =>{
+export const createUser = (user) => async (dispatch) =>{
     try {
-        const {data} = await api.createPost(users) ;
-        console.log("data",data);
+        const {data} = await api.createUser(user) ;
+        console.log("data",user);
         dispatch({type: 'CREATE', payload: data});
     } catch (error) {
         console.log(error.message);

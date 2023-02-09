@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { TextField, Button, Typography, Paper, Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import { TextField, Button, Typography, Paper, Grid , InputAdornment, IconButton  } from "@material-ui/core";
+
 import { useNavigate } from "react-router-dom";
 import useStyle from "../Form/styles";
+import { createUser } from "../../actions/users";
+
+import { useDispatch} from "react-redux";
+
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 // import Home from "../Home";
 
@@ -11,21 +18,31 @@ const Profile = () => {
     name : "",
     password : "",
     passwordConf : "",
+    showPassword : false
   });
 
+  const handleClickShowPassword = () => {
+    setUserData({ ...userData, showPassword: !userData.showPassword });
+  };
+  
+
+  const dispatch = useDispatch();
 
   const classes = useStyle();
 
   const navigate = useNavigate();
-
-  const profilePage = () =>{
-    navigate("/home");
-  }
   
   const handleSubmit = async(e) =>{
     e.preventDefault() ;
-
+    console.log("inside createpost",userData);
     
+    if(userData.password===userData.passwordConf){
+      dispatch(createUser(userData));
+      navigate("/home");
+    }
+    else
+      alert('Please Check the password');
+
   }
     
   
@@ -50,17 +67,21 @@ const Profile = () => {
             autoComplete="off"
             noValidate
             className={`${classes.root} ${classes.form}`}
+            onSubmit={handleSubmit}
           >
             <Typography varient="h6">{"Register Page"}</Typography>
 
             <TextField
+              required
               name="name"
               variant="outlined"
+              id="filled-required"
               label="Name"
               fullWidth
-              value={0}
-              required
-              onChange={0}
+              value={userData.name}
+              onChange={(e) =>
+                setUserData({ ...userData, name: e.target.value })
+              }
             />
 
             <TextField
@@ -68,18 +89,41 @@ const Profile = () => {
               variant="outlined"
               label="Password"
               fullWidth
-              value={0}
+              type={userData.showPassword ? "text" : "password"}
+              value={userData.password}
               required
-              onChange={0}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+
+              InputProps={{ 
+              endAdornment : (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    // onMouseDown={handleMouseDownPassword}
+                  >
+                    {userData.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              )
+              }}
+
             />
             <TextField
+            required
               name="Cpassword"
               variant="outlined"
               label="Confirm Password"
               fullWidth
-              value={0}
-              required  
-              onChange={0}
+              type={userData.showPassword ? "text" : "password"}
+              value={userData.passwordConf}  
+              onChange={(e) =>
+                setUserData({ ...userData, passwordConf: e.target.value })
+              }
+              
+              
+            
             />
 
             <Button
@@ -89,7 +133,7 @@ const Profile = () => {
               size="large"
               type="submit"
               fullWidth
-              onClick={profilePage}
+              
             >
               Submit
             </Button>

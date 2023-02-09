@@ -2,6 +2,7 @@ import React from 'react';
 import Home from "./components/Home.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./components/Profile/Profile.js";
+import Login from "./components/Profile/Login.js";
 
 
 
@@ -14,7 +15,8 @@ const App = () => {
     return (
         <BrowserRouter>
         <Routes>
-            <Route path = "/" element={<Profile/>}/>
+            <Route path = "/register" element={<Profile/>}/>
+            <Route path = "/login" element={<Login/>}/>
             <Route path = "/home" element={<Home/>}/>
         </Routes>
         </BrowserRouter>

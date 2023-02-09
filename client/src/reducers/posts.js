@@ -1,4 +1,4 @@
-export default (posts = [], action) => {
+const posts = (posts = [], action) => {
   switch (action.type) {
     //read ./action/posts to get the return type
     case "UPDATE":
@@ -16,3 +16,4 @@ export default (posts = [], action) => {
       return posts;
   }
 };
+export default posts;
