@@ -13,6 +13,8 @@ import {
 import useStyle from "../Form/styles";
 import { getUser } from "../../actions/users";
 
+import { useNavigate } from "react-router-dom";
+
 // import { useDispatch} from "react-redux";
 
 import Visibility from "@material-ui/icons/Visibility";
@@ -26,9 +28,16 @@ const Login = () => {
     showPassword: false,
   });
 
+  const navigate = useNavigate();
+
+  const switchMode = () =>{
+    navigate("/register");
+  }
   const handleLogin = () =>{
     //
   }
+
+  
 
   return (
     <Grid
@@ -102,6 +111,15 @@ const Login = () => {
             >
               Login
             </Button>
+            <Grid container justifyContent="flex">
+                <Grid item>
+                    <Button onClick={switchMode}>
+                       Dont have an account? Sign Up
+                    </Button>
+                </Grid>
+
+            </Grid>
+          
           </form>
         </Paper>
       </Grid>

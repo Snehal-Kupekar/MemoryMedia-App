@@ -45,7 +45,9 @@ const Profile = () => {
 
   }
     
-  
+  const switchMode = () =>{
+      navigate("/login");
+  }
 
   return (
     <Grid
@@ -135,8 +137,17 @@ const Profile = () => {
               fullWidth
               
             >
-              Submit
+              Sign Up
             </Button>
+            <Grid container justifyContent="flex">
+                <Grid item>
+                    <Button onClick={switchMode}>
+                        Already have account? Sign In
+                    </Button>
+                </Grid>
+
+            </Grid>
+          
           </form>
         </Paper>
       </Grid>

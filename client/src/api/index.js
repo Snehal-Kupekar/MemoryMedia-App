@@ -23,6 +23,6 @@ export const fetchUser = () => {
   return axios.get(userUrl).catch((e) => console.log(e));
 };
 
-export const createUser = (user) => {
-  return axios.post(userUrl, user).catch((e) => console.log(e));
+export const createUser = (newUser) => {
+  return axios.post(userUrl, newUser).catch((e) => console.log(e));
 };
