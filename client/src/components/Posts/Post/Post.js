@@ -14,7 +14,7 @@ import {
   DialogContent,
   DialogContentText,
 } from "@material-ui/core";
-import ThumbsUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
@@ -26,7 +26,6 @@ import { deletePost } from "../../../actions/posts";
 const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const [isDelete, setIsDelete] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likeCount);
   const [deleteDialog, setDeleteDialog] = useState(false);
   const classes = useStyle();
 
@@ -36,9 +35,8 @@ const Post = ({ post, setCurrentId }) => {
     handleCloseDialog();
     setIsDelete(true);
   };
-  const handlePostLikeCount = () => {
-    likeCount === 0 ? setLikeCount(1) : setLikeCount(0);
-  };
+ 
+  
   const handleCloseDialog = () => {
     setDeleteDialog(false);
   };
@@ -92,11 +90,6 @@ const Post = ({ post, setCurrentId }) => {
             </Typography>
           </CardContent>
           <CardActions className={classes.cardActions}>
-            <Button size="small" color="primary" onClick={handlePostLikeCount}>
-              <ThumbsUpAltIcon fontSize="small" />
-              Like
-              {likeCount}
-            </Button>
             <Button
               size="small"
               color="primary"

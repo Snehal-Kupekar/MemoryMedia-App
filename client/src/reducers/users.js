@@ -4,6 +4,8 @@ const users = (users = [], action) => {
     case "FETCH_ALL":
       return action.payload;
 
+
+    //all users adding current user in array .. it will return 
     case "CREATE":
       return [...users, action.payload];
 

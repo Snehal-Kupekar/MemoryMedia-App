@@ -25,10 +25,22 @@ export const createUser = async (req, res) => {
     
 
     const newUser = new UserModel(user);
-   
+    
+    // console.log(newUser.name);
 
     try {
-        await newUser.save();
+        const check = await UserModel.findOne({name : newUser.name});
+
+        if(check){
+            console.log("exist");
+            res.json("exist");
+        }
+
+        else {
+            console.log("not exist");
+            await newUser.save();
+        }
+
         res.status(201).json(newUser);
 
     } catch (error) {

@@ -38,6 +38,7 @@ const Profile = () => {
     
     if(userData.password===userData.passwordConf){
       dispatch(createUser(userData));
+      console.log(dispatch(createUser(userData)));
       navigate("/home");
     }
     else
@@ -78,7 +79,7 @@ const Profile = () => {
               name="name"
               variant="outlined"
               id="filled-required"
-              label="Name"
+              label="UserName"
               fullWidth
               value={userData.name}
               onChange={(e) =>

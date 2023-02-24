@@ -37,6 +37,9 @@ const Login = () => {
     //
   }
 
+  const handleClickShowPassword = () => {
+    setUserData({ ...userData, showPassword: !userData.showPassword });
+  };
   
 
   return (
@@ -68,10 +71,12 @@ const Login = () => {
               name="name"
               variant="outlined"
               id="filled-required"
-              label="Name"
+              label="UserName"
               fullWidth
-              value={0}
-              onChange={0}
+              value={userData.name}
+              onChange={(e)=>
+                setUserData({ ...userData, name: e.target.value })
+              }
             />
 
             <TextField
@@ -80,14 +85,16 @@ const Login = () => {
               label="Password"
               fullWidth
               type={userData.showPassword ? "text" : "password"}
-              value={0}
+              value={userData.password}
               required
-              onChange={0}
+              onChange={(e)=>
+                setUserData({...userData,password:e.target.value})
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                    // onClick={handleClickShowPassword}
+                    onClick={handleClickShowPassword}
                     // onMouseDown={handleMouseDownPassword}
                     >
                       {userData.showPassword ? (
