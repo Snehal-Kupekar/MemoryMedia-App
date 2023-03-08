@@ -21,6 +21,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(cors());
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 

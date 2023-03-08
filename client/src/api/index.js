@@ -24,5 +24,9 @@ export const fetchUser = () => {
 };
 
 export const createUser = (newUser) => {
-  return axios.post(userUrl, newUser).catch((e) => console.log(e));
+  return axios.post(userUrl, newUser).catch((e) =>console.log(e));
 };
+
+export const loginUser = (user)   =>{
+  return axios.post(userUrl,user).catch((e) =>console.log(e));
+}

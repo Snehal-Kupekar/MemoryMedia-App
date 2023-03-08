@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Paper, Grid , InputAdornment, IconButton  } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Grid,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
 
 import { useNavigate } from "react-router-dom";
 import useStyle from "../Form/styles";
 import { createUser } from "../../actions/users";
 
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -13,42 +21,38 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 // import Home from "../Home";
 
 const Profile = () => {
-
-  const [userData , setUserData] = useState({
-    name : "",
-    password : "",
-    passwordConf : "",
-    showPassword : false
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    passwordConf: "",
+    showPassword: false,
   });
 
   const handleClickShowPassword = () => {
     setUserData({ ...userData, showPassword: !userData.showPassword });
   };
-  
 
   const dispatch = useDispatch();
 
   const classes = useStyle();
 
   const navigate = useNavigate();
-  
-  const handleSubmit = async(e) =>{
-    e.preventDefault() ;
-    console.log("inside createpost",userData);
-    
-    if(userData.password===userData.passwordConf){
-      dispatch(createUser(userData));
-      console.log(dispatch(createUser(userData)));
-      navigate("/home");
-    }
-    else
-      alert('Please Check the password');
 
-  }
-    
-  const switchMode = () =>{
-      navigate("/login");
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("inside createpost", userData);
+
+    if (userData.password === userData.passwordConf) {
+      dispatch(createUser(userData));
+      // console.log(dispatch(createUser(userData)));
+      // navigate("/home");
+    } else alert("Please Check the password");
+  };
+
+  const switchMode = () => {
+    navigate("/login");
+  };
 
   return (
     <Grid
@@ -68,7 +72,7 @@ const Profile = () => {
         >
           <form
             autoComplete="off"
-            noValidate
+            Validate
             className={`${classes.root} ${classes.form}`}
             onSubmit={handleSubmit}
           >
@@ -88,6 +92,19 @@ const Profile = () => {
             />
 
             <TextField
+              required
+              name="email"
+              variant="outlined"
+              id="filled-required"
+              label="email"
+              fullWidth
+              value={userData.email}
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+            />
+
+            <TextField
               name="password"
               variant="outlined"
               label="Password"
@@ -98,35 +115,34 @@ const Profile = () => {
               onChange={(e) =>
                 setUserData({ ...userData, password: e.target.value })
               }
-
-              InputProps={{ 
-              endAdornment : (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                  >
-                    {userData.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              )
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      // onMouseDown={handleMouseDownPassword}
+                    >
+                      {userData.showPassword ? (
+                        <Visibility />
+                      ) : (
+                        <VisibilityOff />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
-
             />
             <TextField
-            required
+              required
               name="Cpassword"
               variant="outlined"
               label="Confirm Password"
               fullWidth
               type={userData.showPassword ? "text" : "password"}
-              value={userData.passwordConf}  
+              value={userData.passwordConf}
               onChange={(e) =>
                 setUserData({ ...userData, passwordConf: e.target.value })
               }
-              
-              
-            
             />
 
             <Button
@@ -136,19 +152,16 @@ const Profile = () => {
               size="large"
               type="submit"
               fullWidth
-              
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex">
-                <Grid item>
-                    <Button onClick={switchMode}>
-                        Already have account? Sign In
-                    </Button>
-                </Grid>
-
+              <Grid item>
+                <Button onClick={switchMode}>
+                  Already have account? Sign In
+                </Button>
+              </Grid>
             </Grid>
-          
           </form>
         </Paper>
       </Grid>

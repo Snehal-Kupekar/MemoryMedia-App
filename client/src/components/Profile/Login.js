@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   TextField,
   Button,
@@ -11,7 +12,7 @@ import {
 
 // import { useNavigate } from "react-router-dom";
 import useStyle from "../Form/styles";
-import { getUser } from "../../actions/users";
+import { loginUser } from "../../actions/users";
 
 import { useNavigate } from "react-router-dom";
 
@@ -22,8 +23,9 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const Login = () => {
   const classes = useStyle();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState({
-    name: "",
+    email: "",
     password: "",
     showPassword: false,
   });
@@ -33,8 +35,11 @@ const Login = () => {
   const switchMode = () =>{
     navigate("/register");
   }
-  const handleLogin = () =>{
+  const handleLogin = (e) =>{
     //
+    e.preventDefault();
+    console.log("inside loginpost", userData);
+    dispatch(loginUser(userData));
   }
 
   const handleClickShowPassword = () => {
@@ -68,14 +73,14 @@ const Login = () => {
 
             <TextField
               required
-              name="name"
+              name="email"
               variant="outlined"
               id="filled-required"
-              label="UserName"
+              label="Email"
               fullWidth
-              value={userData.name}
+              value={userData.email}
               onChange={(e)=>
-                setUserData({ ...userData, name: e.target.value })
+                setUserData({ ...userData, email: e.target.value })
               }
             />
 
