@@ -39,7 +39,8 @@ export const loginUser = async (user)   =>{
   try{
     const loginRes = await API.post('/users/signin',user);
     console.log("loginRes from axios",loginRes.data.result);
-    return loginRes.data.token;
+    const data = await loginRes.data.token
+    return data;
   }
   catch(error){
     console.log(error);
