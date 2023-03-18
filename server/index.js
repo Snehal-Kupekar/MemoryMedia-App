@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/user.js";
 
+
 const app = express();
 
 //set limit for image

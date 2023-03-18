@@ -1,16 +1,11 @@
 import express  from 'express';
-// import { loginUser } from "../../client/src/actions/users.js";
-
-
-import {createUser , loginUser} from "../controller/user.js"
+import auth from '../middleware/auth.js';
+import {signup,signin,getUsers} from "../controller/user.js"
 
 const router = express.Router();
 
-// const encrypt = bcrypt();
-
-// router.get('/', getUsers);
-router.post('/', loginUser);
-router.post('/', createUser);
-// router.post('/' ,loginUser);
+    router.get('/' , getUsers) ;
+    router.post('/signup',signup);
+    router.post('/signin', signin);
 
 export default router;

@@ -1,21 +1,27 @@
 import * as api from '../api'
 
-// export const getUser = () => async (dispatch) =>{
-//     try {
-//         const {data} = await api.fetchUser();
+export const getUser = () => async (dispatch) =>{
+    try {
+        const {data} = await api.fetchUser();
 
-//         dispatch({type : 'FETCH_ALL' , payload : data});
+        // dispatch({type : 'FETCH_ALL' , payload : data});
 
-//     } catch ( error){
-//         console.log(error.message);
-//     }
-// }
+    } catch ( error){
+        console.log(error.message);
+    }
+}
 
 export const createUser = (user) => async (dispatch) =>{
     try {
-        const {data} = await api.createUser(user) ;
-        console.log("data exist or not:",data);
-        dispatch({type: 'CREATE', payload: data});
+        const {data,token} = await api.createUser(user) ;
+
+        
+        console.log("client/action-createuser,data=>",data);
+        console.log("client/action-createuser,token=>",token);
+
+
+        return data;
+       
         
     } catch (error) {
         console.log(error.message);
@@ -26,10 +32,14 @@ export const createUser = (user) => async (dispatch) =>{
 export const loginUser = (user) => async (dispatch) =>{
     try{
         const {data} = await api.loginUser(user)
+
+        console.log("action login user",data);
         dispatch({type: 'CREATE', payload: data});
-        console.log("login data",data);
+
+        return data;
     }
     catch(error){
+        
         console.log(error.message);
     }
 }

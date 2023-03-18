@@ -35,11 +35,19 @@ const Login = () => {
   const switchMode = () =>{
     navigate("/register");
   }
-  const handleLogin = (e) =>{
-    //
+  const handleLogin = async (e) =>{
+    
     e.preventDefault();
-    console.log("inside loginpost", userData);
-    dispatch(loginUser(userData));
+    
+    const login_data = await dispatch(loginUser(userData));
+
+    
+    
+
+    if(login_data)
+      navigate('/home');
+    else
+      alert("Check credential");
   }
 
   const handleClickShowPassword = () => {

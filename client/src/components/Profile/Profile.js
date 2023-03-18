@@ -44,9 +44,19 @@ const Profile = () => {
     console.log("inside createpost", userData);
 
     if (userData.password === userData.passwordConf) {
-      dispatch(createUser(userData));
-      // console.log(dispatch(createUser(userData)));
-      // navigate("/home");
+     
+      const user_data = await dispatch(createUser(userData));
+
+      console.log('login_daata ~ profile ~ ',user_data);
+
+      // console.log(user_data);
+
+      if(user_data)
+        navigate("/home");
+      else
+        alert("Email already in use");
+      
+      
     } else alert("Please Check the password");
   };
 
