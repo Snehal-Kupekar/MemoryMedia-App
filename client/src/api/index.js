@@ -28,11 +28,21 @@ export const fetchUser = () => {
   return API.get('/users').catch((e) => console.log(e));
 };
 
-export const createUser = (newUser) => {
+export const createUser =  (newUser) => {
   console.log("inside client",newUser);
-  return API.post('/users/signup', newUser).catch((e) =>console.log(e));
+  return API.post('/users/signup', newUser).catch((e) => console.log(e));
+   
+  
 };
 
-export const loginUser = (user)   =>{
-  return API.post('/users/signin',user).catch((e) =>console.log(e));
+export const loginUser = async (user)   =>{
+  try{
+    const loginRes = await API.post('/users/signin',user);
+    console.log("loginRes from axios",loginRes.data.result);
+    return loginRes.data.token;
+  }
+  catch(error){
+    console.log(error);
+  }
+  
 }
