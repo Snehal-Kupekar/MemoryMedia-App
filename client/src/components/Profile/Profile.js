@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+
+
 import {
   TextField,
   Button,
@@ -33,6 +35,9 @@ const Profile = () => {
     setUserData({ ...userData, showPassword: !userData.showPassword });
   };
 
+  
+ 
+
   const dispatch = useDispatch();
 
   const classes = useStyle();
@@ -40,16 +45,24 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("inside createpost", userData);
 
-    if (userData.password === userData.passwordConf) {
+    e.preventDefault();
+    try{
+
+      console.log("inside createpost", userData);
+
+      if (userData.password === userData.passwordConf) {
      
       const user_data = await dispatch(createUser(userData));
 
       console.log('login_daata ~ profile ~ ',user_data);
 
-      // console.log(user_data);
+      const result = user_data.result;
+      const token = user_data.token;
+
+      
+      dispatch({type : 'AUTH', data : {result,token}});
+      
 
       if(user_data)
         navigate("/home");
@@ -58,6 +71,9 @@ const Profile = () => {
       
       
     } else alert("Please Check the password");
+    } 
+    catch(error){console.log(error);}
+    
   };
 
   const switchMode = () => {

@@ -6,7 +6,7 @@ import Post from './Post/Post';
 import useStyles from './styles';
 
 
-// useSelector is for fetching the posts created on page  
+// useSelector is for fetching the posts stored in store   
 const Posts = ({ setCurrentId }) => {
   const posts = useSelector((state) => state.posts);
   const classes = useStyles();

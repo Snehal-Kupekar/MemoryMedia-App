@@ -13,9 +13,11 @@ export const getUser = () => async (dispatch) =>{
 
 export const createUser = (user) => async (dispatch) =>{
     try {
-        const {signRes} = await api.createUser(user) ;
-        console.log("signRes- response from createuser",signRes.data);
-        return signRes;
+        const {data} = await api.createUser(user) ;
+
+        console.log("signRes - response from action/createuser=>",data);
+        
+        return data;
        
         
     } catch (error) {
@@ -26,11 +28,12 @@ export const createUser = (user) => async (dispatch) =>{
 
 export const loginUser = (user) => async (dispatch) =>{
     try{
-        const {login_data} = await api.loginUser(user)
-        console.log("loginRes- response from loginUser",login_data);
-        dispatch({type: 'CREATE', payload: login_data});
+        const {data} = await api.loginUser(user)
 
-        return login_data;
+        console.log("loginRes - response from action => ",data.token);
+
+        
+        return data;
     }
     catch(error){
         

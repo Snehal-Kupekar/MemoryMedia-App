@@ -8,17 +8,15 @@ const auth = async (req,res,next) =>{
 
     try{
     
-    const token  = req.header.Authoriaztion.split(' ')[1];
     
+    const token  = req.headers.authoriaztion.split(' ')[1];
+    
+    console.log(req.headers.authoriaztion);
     //token length is greater than 500 then token is coming from google but this token is custom so it will be of length less than 500
-    const customAuth = token.length ;
 
     let decodedData;
-
     decodedData = jwt.verify(token , 'secrete');
-
-    // getting id of that 
-   
+     // getting id of that 
     req.usedId = decodedData ?.id;
     
     next();
