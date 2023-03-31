@@ -56,14 +56,8 @@ const Profile = () => {
       const user_data = await dispatch(createUser(userData));
 
       console.log('login_daata ~ profile ~ ',user_data);
-
-      const result = user_data.result;
-      const token = user_data.token;
-
+ 
       
-      dispatch({type : 'AUTH', data : {result,token}});
-      
-
       if(user_data)
         navigate("/home");
       else

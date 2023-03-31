@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 // import UserContext from "../../context/userContext";
-import { useDispatch } from "react-redux";
+import { useDispatch  } from "react-redux";
 
 
 import {
@@ -42,6 +42,8 @@ const Login = () => {
   const switchMode = () => {
     navigate("/register");
   };
+
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -52,20 +54,15 @@ const Login = () => {
         login_data.token,
         login_data.result.name
       );
-
-      const result = login_data.result;
-      const token = login_data.token;
-
       
-
-      dispatch({ type: "AUTH", data: { result, token } });
-
+// 
       if (login_data) navigate("/home");
       else alert("Check credential");
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const handleClickShowPassword = () => {
     setUserData({ ...userData, showPassword: !userData.showPassword });

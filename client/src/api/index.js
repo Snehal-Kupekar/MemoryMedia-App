@@ -8,8 +8,9 @@ const API = axios.create({baseURL:'http://localhost:5000/'});
 
 
 
-export const fetchPosts = () => {
-  return API.get('/posts').catch((e) => console.log(e));
+export const fetchPosts = (id) => {
+  console.log("in axios of fetch post:=> ",id);
+  return API.get(`/posts/${id}`).catch((e) => console.log(e));
 };
 
 export const createPost = (newPost) => {

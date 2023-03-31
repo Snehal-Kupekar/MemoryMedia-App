@@ -8,19 +8,37 @@ import useStyle from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 
 const Form = ({ currentId, setCurrentId }) => {
+
+
   const [postData, setPostData] = useState({
+    userId : "",
     creator: "",
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
   });
+  
+  const [isPostUpdated, setIsPostUpdate] = useState(false);
+
+  const currUser = JSON.parse(localStorage.getItem('profile'));
+  const currUserId = currUser.result._id;
+  console.log("current user from form.js",currUser.result._id);
 
   const post = useSelector((state) =>
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
   const classes = useStyle();
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    console.log("postdata",postData);
+    if (currUserId) 
+    dispatch(createPost(postData));
+
+    setIsPostUpdate(false);
+  },[isPostUpdated]);
+
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -29,6 +47,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(null);
     setPostData({
+      userId:"",
       creator: "",
       title: "",
       message: "",
@@ -36,20 +55,33 @@ const Form = ({ currentId, setCurrentId }) => {
       selectedFile: "",
     });
   };
+  
+  // const currentUser = useSelector((state) => state.users.authData.result._id);
 
+
+  
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currentId === null) {
-      dispatch(createPost(postData));
-      console.log("inside createpost");
-      clear();
+    if (currUserId) {
+      setPostData({...postData,userId:currUserId})
+      setIsPostUpdate(true);
+    };
 
+    if (currentId === null) {
+
+      console.log("inside createpost");
+      
+      clear();
+      
     } else {
       dispatch(updatePost(currentId, postData));
       clear();
     }
   };
+  // setPostData({ ...postData, userId: currentId});
 
   // console.log(setPostData());
   return (
@@ -116,6 +148,7 @@ const Form = ({ currentId, setCurrentId }) => {
           size="large"
           type="submit"
           fullWidth
+          
         >
           Submit
         </Button>

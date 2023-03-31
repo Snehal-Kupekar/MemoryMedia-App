@@ -17,6 +17,7 @@ export const createUser = (user) => async (dispatch) =>{
 
         console.log("signRes - response from action/createuser=>",data);
         
+        dispatch({ type: "AUTH", data: data});
         return data;
        
         
@@ -28,15 +29,14 @@ export const createUser = (user) => async (dispatch) =>{
 
 export const loginUser = (user) => async (dispatch) =>{
     try{
-        const {data} = await api.loginUser(user)
+        const {data} = await api.loginUser(user);
 
+        dispatch({ type: "AUTH", data: data});
         console.log("loginRes - response from action => ",data.token);
-
-        
+    
         return data;
     }
     catch(error){
-        
         console.log(error.message);
     }
 }

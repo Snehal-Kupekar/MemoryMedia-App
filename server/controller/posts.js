@@ -6,7 +6,12 @@ import PostMessage from "../models/postMessage.js";
 
 export const getPosts = async (req, res) => {
     try {
-        const postMessages = await PostMessage.find();
+       
+        const {id} = req.params;
+
+        console.log("current user /getpost :", id);
+
+        const postMessages = await PostMessage.find({userId : id});
 
         res.status(200).json(postMessages);
     } catch (error) {
@@ -15,13 +20,16 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const post = req.body;
-
-    const newPost = new PostMessage(post);
+    const {userId,title,message ,creator , selectedFile,createdAt} = req.body;
+    
+    // const newPost = new PostMessage(post);
+    // console.log("create post data", newPost.userId);
 
     try {
-        await newPost.save();
-        res.status(201).json(newPost);
+        const result = await PostMessage.create({userId,title,message ,creator , selectedFile,createdAt});
+        console.log("create post from server:" , result);
+        result.save();
+        res.status(201).json(result);
 
     } catch (error) {
         res.status(409).json({ message: error.message });

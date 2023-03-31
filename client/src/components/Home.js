@@ -10,7 +10,7 @@ import {
   Box
 } from "@material-ui/core";
 
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 
 
 import { getPosts } from "../actions/posts.js";
@@ -19,7 +19,7 @@ import Form from "./Form/Form.js";
 import memories from "../images/memories.png";
 
 import useStyle from "../styles.js";
-import { lightGreen } from "@material-ui/core/colors";
+
 
 // here we write function for updatePost button because this is the only component
 // where both state is present POST as well as FORM which is required
@@ -35,7 +35,9 @@ const Home = () => {
 
   const currUser = JSON.parse(localStorage.getItem('profile'));
 
-  console.log("after login who is user =>",currUser);
+  
+  
+  console.log("after login who is user =>",currUser.result._id);
 
   const logout = () =>{
     dispatch({type : "LOGOUT"});
@@ -43,15 +45,14 @@ const Home = () => {
     setUser(null);
   }
 
-  // useEffect(()=>{
-  //   const token = user?.token;
+  //pass here userId in getPost
 
-  //   setUser(JSON.parse(localStorage.getItem('profile')));
+  const currentUserId = currUser.result._id;
 
-  // },[]);
+  // console.log("id",currentUserId);
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPosts(currentUserId));
   }, [dispatch]);
 
   
