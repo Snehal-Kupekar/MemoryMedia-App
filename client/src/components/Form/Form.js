@@ -36,6 +36,7 @@ const Form = ({ currentId, setCurrentId }) => {
     if (currUserId) 
     setIsPostUpdate(false);
   },[isPostUpdated]);
+  
 
 
   useEffect(() => {
