@@ -34,8 +34,6 @@ const Form = ({ currentId, setCurrentId }) => {
   useEffect(()=>{
     console.log("postdata",postData);
     if (currUserId) 
-    dispatch(createPost(postData));
-
     setIsPostUpdate(false);
   },[isPostUpdated]);
 
@@ -71,7 +69,7 @@ const Form = ({ currentId, setCurrentId }) => {
     };
 
     if (currentId === null) {
-
+      dispatch(createPost(postData));
       console.log("inside createpost");
       
       clear();
