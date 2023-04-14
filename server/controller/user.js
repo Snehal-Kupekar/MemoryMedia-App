@@ -1,6 +1,6 @@
 
-
-import mongoose from "mongoose";
+import { default as dotenv } from "dotenv"; 
+dotenv.config({ path: '../.env' });
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -33,7 +33,7 @@ export const signup = async (req, res) => {
 
         const result = await User.create({name,email,password:hashPassword});
 
-        const token = jwt.sign({email:result.email , id: result._id} , 'secrete' , {expiresIn:'1h'});
+        const token = jwt.sign({email:result.email , id: result._id} , process.env.SECRETE , {expiresIn:'1h'});
 
         res.status(200).json({result,token});
 
@@ -56,9 +56,9 @@ export const signin = async (req,res) => {
             if(!isPasswordCorrect) return res.status(400).json({message:"Invalid credential"});
 
 
-            const token = jwt.sign({email:existingUser.email , id: existingUser._id} , 'secrete' ,{expiresIn: "1h"});
+            const token = jwt.sign({email:existingUser.email , id: existingUser._id} , process.env.SECRETE ,{expiresIn: "1h"});
             // console.log("signin done");
-            res.status(202).json({result: existingUser,token});
+            res.status(202).json({result: existingUser ,token});
     }
     catch(error){
         res.status(500).json({message:error.message});

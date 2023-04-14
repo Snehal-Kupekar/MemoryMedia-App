@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, {  useState } from "react";
+// import UserContext from "../../context/userContext";
+import { useDispatch  } from "react-redux";
+
+
 import {
   TextField,
   Button,
@@ -21,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
+
 const Login = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
@@ -30,30 +34,33 @@ const Login = () => {
     showPassword: false,
   });
 
+  
+
   const navigate = useNavigate();
 
-  const switchMode = () =>{
+  
+  const switchMode = () => {
     navigate("/register");
-  }
-  const handleLogin = async (e) =>{
-    
+  };
+
+  
+  const handleLogin = async (e) => {
     e.preventDefault();
-    
-    const login_data = await dispatch(loginUser(userData));
-
-    
-    
-
-    if(login_data)
-      navigate('/home');
-    else
-      alert("Check credential");
-  }
+    try {
+      const login_data = await dispatch(loginUser(userData));
+      
+      if (login_data) navigate("/home");
+      else alert("Check credential");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
   const handleClickShowPassword = () => {
     setUserData({ ...userData, showPassword: !userData.showPassword });
   };
-  
+
 
   return (
     <Grid
@@ -87,7 +94,7 @@ const Login = () => {
               label="Email"
               fullWidth
               value={userData.email}
-              onChange={(e)=>
+              onChange={(e) =>
                 setUserData({ ...userData, email: e.target.value })
               }
             />
@@ -100,15 +107,15 @@ const Login = () => {
               type={userData.showPassword ? "text" : "password"}
               value={userData.password}
               required
-              onChange={(e)=>
-                setUserData({...userData,password:e.target.value})
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
               }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                    onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
+                      onClick={handleClickShowPassword}
+                      // onMouseDown={handleMouseDownPassword}
                     >
                       {userData.showPassword ? (
                         <Visibility />
@@ -132,14 +139,12 @@ const Login = () => {
               Login
             </Button>
             <Grid container justifyContent="flex">
-                <Grid item>
-                    <Button onClick={switchMode}>
-                       Dont have an account? Sign Up
-                    </Button>
-                </Grid>
-
+              <Grid item>
+                <Button onClick={switchMode}>
+                  Dont have an account? Sign Up
+                </Button>
+              </Grid>
             </Grid>
-          
           </form>
         </Paper>
       </Grid>
