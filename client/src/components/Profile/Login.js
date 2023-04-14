@@ -48,14 +48,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const login_data = await dispatch(loginUser(userData));
-
-      console.log(
-        " frontend profile page , dispatch return =>",
-        login_data.token,
-        login_data.result.name
-      );
       
-// 
       if (login_data) navigate("/home");
       else alert("Check credential");
     } catch (error) {

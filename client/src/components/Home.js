@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+
 import {
   Container,
   AppBar,
@@ -7,8 +9,11 @@ import {
   Grow,
   Grid,
   Button,
-  Box
+  Box,
+  
+
 } from "@material-ui/core";
+
 
 import { useDispatch} from "react-redux";
 
@@ -49,11 +54,15 @@ const Home = () => {
 
   const currentUserId = currUser.result._id;
 
-  // console.log("id",currentUserId);
+  const currentUser = currUser.result.name;
 
   useEffect(() => {
     dispatch(getPosts(currentUserId));
   }, [dispatch]);
+
+  
+
+
 
   
   return (
@@ -76,9 +85,12 @@ const Home = () => {
           </div>
       
           </Grid>
-          <Grid item xs={6} md={4} style={{display:"flex"}}>
             
-          <Button color="secondary" className={classes.button} onClick={logout}>Login</Button>
+          
+
+          <Grid item xs={6} md={4}  style={{display:"flex"}}>
+
+          <Button color="secondary" className={classes.button} onClick={logout}>LOGOUT</Button>
           </Grid>
 
           </Grid>
@@ -101,6 +113,9 @@ const Home = () => {
         </Container>
       </Grow>
     </Box>
+
+    
+    
   );
 };
 

@@ -1,10 +1,11 @@
+import { default as dotenv } from "dotenv"; 
+dotenv.config({ path: '../.env' });
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/user.js";
-
 
 const app = express();
 
@@ -27,8 +28,9 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 const CONNECTION_URL =
-  "mongodb+srv://project:project123@cluster0.vknf7sc.mongodb.net/?retryWrites=true&w=majority";
-const PORT = process.env.PORT || 5000;
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vknf7sc.mongodb.net/?retryWrites=true&w=majority`;
+
+let PORT = process.env.PORT_SER || 8000;
 
 //connection of index.js with mangoose altas
 //if connection is successful .then or give error

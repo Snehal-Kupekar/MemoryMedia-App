@@ -18,8 +18,7 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: "",
     selectedFile: "",
   });
-  
-  const [isPostUpdated, setIsPostUpdate] = useState(false);
+
 
   const currUser = JSON.parse(localStorage.getItem('profile'));
   const currUserId = currUser.result._id;
@@ -30,14 +29,6 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const classes = useStyle();
   const dispatch = useDispatch();
-
-  useEffect(()=>{
-    console.log("postdata",postData);
-    if (currUserId) 
-    setIsPostUpdate(false);
-  },[isPostUpdated]);
-  
-
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -50,7 +41,6 @@ const Form = ({ currentId, setCurrentId }) => {
       creator: "",
       title: "",
       message: "",
-      tags: "",
       selectedFile: "",
     });
   };
@@ -64,10 +54,9 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currUserId) {
-      setPostData({...postData,userId:currUserId})
-      setIsPostUpdate(true);
-    };
+    // if (currUserId) {
+    //   setPostData({...postData,userId:currUserId})
+    // };
 
     if (currentId === null) {
       dispatch(createPost(postData));
@@ -80,9 +69,7 @@ const Form = ({ currentId, setCurrentId }) => {
       clear();
     }
   };
-  // setPostData({ ...postData, userId: currentId});
-
-  // console.log(setPostData());
+  
   return (
     <Paper className={classes.paper}>
       <form
@@ -101,7 +88,7 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           value={postData.creator}
           onChange={(e) =>
-            setPostData({ ...postData, creator: e.target.value })
+            setPostData({ ...postData, creator: e.target.value,userId:currUserId })
           }
         />
         <TextField
@@ -110,7 +97,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Title"
           fullWidth
           value={postData.title}
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+          onChange={(e) => setPostData({ ...postData, title: e.target.value,userId:currUserId })}
         />
         <TextField
           name="message"
@@ -119,23 +106,15 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           value={postData.message}
           onChange={(e) =>
-            setPostData({ ...postData, message: e.target.value })
+            setPostData({ ...postData, message: e.target.value,userId:currUserId })
           }
-        />
-        <TextField
-          name="tag"
-          variant="outlined"
-          label="Tag"
-          fullWidth
-          value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         />
         <div className={classes.fileInput}>
           <FileBase
             type="file"
             multiple={false}
             onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
+              setPostData({ ...postData, selectedFile: base64 ,userId:currUserId})
             }
           />
         </div>
