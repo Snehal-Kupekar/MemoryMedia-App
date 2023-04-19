@@ -3,15 +3,15 @@
     "builds": 
     [
         {
-         "src": "*.js", 
+         "src": "index.js", 
          "use": "@vercel/node"
         }
     ],
     "routes": 
     [
         {
-            "src": "/(.*)", 
-            "dest": "/" 
+            "src": "/(.*)",  
+            "dest": "/index.js" 
         }
     ]
   }
