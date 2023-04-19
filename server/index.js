@@ -1,5 +1,5 @@
 import { default as dotenv } from "dotenv"; 
-dotenv.config({ path: '../.env' });
+dotenv.config({ path: './.env' });
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -28,7 +28,7 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 const CONNECTION_URL =
-  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vknf7sc.mongodb.net/?retryWrites=true&w=majority`;
+  process.env.MONGODB_URL;
 
 let PORT = process.env.PORT_SER || 8000;
 
