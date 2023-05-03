@@ -4,8 +4,8 @@ import axios from "axios";
 // const url = "http://localhost:5000/posts";
 // const userUrl = "http://localhost:5000/users";
 
-const API = axios.create({baseURL:'http://localhost:5000/'});
-// const API = axios.create({baseURL:'https://memoriesappbackend.onrender.com/'});
+// const API = axios.create({baseURL:'http://localhost:5000/'});
+const API = axios.create({baseURL:'https://memories-backend-drab.vercel.app/'});
 
 
 
