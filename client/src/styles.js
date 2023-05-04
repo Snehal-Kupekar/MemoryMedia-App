@@ -1,4 +1,6 @@
+import { blueGrey } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
+
 
 export default makeStyles(()=>({
     appBar: {
@@ -20,5 +22,13 @@ export default makeStyles(()=>({
         justifyContent: 'center',
         alignItems : 'center',
       },
+
+      home_heading :{
+        justifyContent: 'center',
+        marginTop : 150,
+        fontFamily:'Cabin Sketch',
+        fontWeight : 500,
+      }
+
       
 }));
