@@ -46,7 +46,7 @@ const Home = () => {
 
   const logout = () =>{
     dispatch({type : "LOGOUT"});
-    navigate('/register')
+    navigate('/')
     setUser(null);
   }
 
