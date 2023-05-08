@@ -20,7 +20,7 @@ const navigate = useNavigate();
 
 const signup = () =>{
   dispatch({type : "LOGOUT"});
-  navigate('/register')
+  navigate('/')
 }
 
 const signin = () =>{
