@@ -19,8 +19,8 @@ const dispatch = useDispatch();
 const navigate = useNavigate();
 
 const signup = () =>{
-  dispatch({type : "LOGOUT"});
-  navigate('/')
+  
+  navigate('/register')
 }
 
 const signin = () =>{
