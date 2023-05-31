@@ -113,8 +113,14 @@ const Form = ({ currentId, setCurrentId }) => {
           <FileBase
             type="file"
             multiple={false}
-            onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 ,userId:currUserId})
+            onDone={({ base64 ,file }) =>{
+              if (file.type.includes('image')) {
+                setPostData({ ...postData, selectedFile: base64, userId: currUserId });
+              } else {
+                alert('Only image files are allowed.');
+              }
+            }
+              // setPostData({ ...postData, selectedFile: base64 ,userId:currUserId})
             }
           />
         </div>
