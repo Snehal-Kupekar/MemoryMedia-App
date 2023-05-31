@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, CircularProgress, Typography } from "@material-ui/core";
-import "@fontsource/roboto/400.css";
 import { useSelector } from "react-redux";
 
 import Post from "./Post/Post";
@@ -18,7 +17,6 @@ const Posts = ({ setCurrentId }) => {
       style={{
         marginTop: "60px",
         fontWeight: 400,
-        fontFamily:'roboto',
         fontSize: "30px",
         color:'#025464'
         // lineHeight:'82px'
